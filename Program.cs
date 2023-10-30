@@ -10,30 +10,35 @@ internal class Program
     {
         Console.Clear();
 
+        //Här skapar vi vår katalog som hålla alla våra katalogobjekt, samt 
+        //grundläggande funntionalitet i systemet, såsom att lägga till saker och söka efter saker
         Catalogue catalogue = new();
 
-        AddRandomCatalogeItems(catalogue);
+        //Testkod för att lägga till lite böcker i vår katalog
+        AddRandomCatalogeItems(catalogue, 1000);
 
         Console.Write("sök> ");
         string searchString = Console.ReadLine();
 
-        AnsiConsole.MarkupLine("[underline red]RESULTAT:[/]");
+        AnsiConsole.MarkupLine("[underline blue]RESULTAT:[/]");
         foreach (var item in catalogue.Search(searchString))
         {
             AnsiConsole.MarkupLine($"[white]{item}[/]");
         }
     }
 
-    private static void AddRandomCatalogeItems(Catalogue catalogue)
+    private static void AddRandomCatalogeItems(Catalogue catalogue, int amount)
     {
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < amount; i++)
         {
-            Book newBook = new();
-            newBook.Author = Faker.Name.FullName();
-            newBook.PageCount = Faker.RandomNumber.Next(10, 2000);
-            newBook.Title = Faker.Internet.UserName();
-            newBook.ReleaseDate = Faker.Identification.DateOfBirth();
-            newBook.ISBN = Faker.Identification.UkNationalInsuranceNumber();
+            Book newBook = new()
+            {
+                Author = Faker.Name.FullName(),
+                PageCount = Faker.RandomNumber.Next(10, 2000),
+                Title = BookNameGenerator.GenerateBookName(),
+                ReleaseDate = Faker.Identification.DateOfBirth(),
+                ISBN = Faker.Identification.UkNationalInsuranceNumber()
+            };
 
             catalogue.AddCatalogueItem(newBook);
         }
