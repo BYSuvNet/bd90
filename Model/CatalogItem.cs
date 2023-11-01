@@ -16,8 +16,7 @@ abstract class CatalogueItem
     //Denna metod är abstrakt, vilket betyder att den _måste_ overridas av en subklass.
     public abstract bool Contains(string value);
 
-    public override string ToString()
-    {
-        return "Nu tittar du på objektet som som basklass!";
-    }
+    //Genom att overrida ToString från object-basklassen så kan vi göra den abstract 
+    //och därmed tvinga alla subklasser att implementera ToString()
+    public abstract override string ToString();
 }
