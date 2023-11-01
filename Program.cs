@@ -14,6 +14,8 @@ internal class Program
         //grundläggande funntionalitet i systemet, såsom att lägga till saker och söka efter saker
         Catalogue catalogue = new();
 
+        catalogue.AddCatalogueItem(new Staff { Name = "Gus" });
+
         //Testkod för att lägga till lite böcker i vår katalog
         AddRandomCatalogeItems(catalogue, 1000);
 
@@ -21,9 +23,14 @@ internal class Program
         string searchString = Console.ReadLine();
 
         AnsiConsole.MarkupLine("[underline blue]RESULTAT:[/]");
-        foreach (var item in catalogue.Search(searchString))
+        foreach (ISearchable item in catalogue.Search(searchString))
         {
             AnsiConsole.MarkupLine($"[white]{item}[/]");
+
+            if (item is ILoggable loggable)
+            {
+                loggable.Log();
+            }
         }
     }
 
@@ -41,6 +48,17 @@ internal class Program
             };
 
             catalogue.AddCatalogueItem(newBook);
+        }
+
+        for (int i = 0; i < amount / 2; i++)
+        {
+            Magazine magazine = new()
+            {
+                Title = "Gus Allt om " + Faker.Country.Name(),
+                Issue = Faker.RandomNumber.Next(1, 13)
+            };
+
+            catalogue.AddCatalogueItem(magazine);
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace BD90.Model;
 
-class Book : CatalogueItem
+class Book : CatalogueItem, ILoggable
 {
     public string Title { get; set; }
     public DateTime ReleaseDate { get; set; }
@@ -18,5 +18,10 @@ class Book : CatalogueItem
     public override string ToString()
     {
         return $"{Id}: Book: {Title} by {Author} released {ReleaseDate.ToShortDateString()} with ISBN {ISBN} and {PageCount} pages";
+    }
+
+    public void Log()
+    {
+        Console.WriteLine("BOKLOGG!");
     }
 }

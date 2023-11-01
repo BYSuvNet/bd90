@@ -1,0 +1,4 @@
+interface ILoggable
+{
+    void Log();
+}

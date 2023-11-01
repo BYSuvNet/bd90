@@ -2,23 +2,23 @@ namespace BD90.Model;
 
 class Catalogue
 {
-    private List<CatalogueItem> catalogueItems = new();
+    private List<ISearchable> catalogueItems = new();
 
-    public void AddCatalogueItem(CatalogueItem ci)
+    public void AddCatalogueItem(ISearchable ci)
     {
         catalogueItems.Add(ci);
     }
 
-    public List<CatalogueItem> GetAllCatalogueItems()
+    public List<ISearchable> GetAllCatalogueItems()
     {
         return catalogueItems;
     }
 
-    public List<CatalogueItem> Search(string searchString)
+    public List<ISearchable> Search(string searchString)
     {
-        List<CatalogueItem> foundCatalogueItems = new();
+        List<ISearchable> foundCatalogueItems = new();
 
-        foreach (CatalogueItem item in catalogueItems)
+        foreach (ISearchable item in catalogueItems)
         {
             if (item.Contains(searchString)) foundCatalogueItems.Add(item);
         }
