@@ -10,8 +10,7 @@ class Book : CatalogueItem
 
     public override bool Contains(string searchString)
     {
-        return base.Contains(searchString) ||
-               Title.Contains(searchString, StringComparison.InvariantCultureIgnoreCase) ||
+        return Title.Contains(searchString, StringComparison.InvariantCultureIgnoreCase) ||
                Author.Contains(searchString, StringComparison.InvariantCultureIgnoreCase) ||
                ISBN.Contains(searchString, StringComparison.InvariantCultureIgnoreCase);
     }

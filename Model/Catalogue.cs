@@ -2,7 +2,7 @@ namespace BD90.Model;
 
 class Catalogue
 {
-    private List<CatalogueItem> catalogueItems = new List<CatalogueItem>();
+    private List<CatalogueItem> catalogueItems = new();
 
     public void AddCatalogueItem(CatalogueItem ci)
     {

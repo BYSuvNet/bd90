@@ -10,8 +10,7 @@ class AudioBook : CatalogueItem
 
     public override bool Contains(string value)
     {
-        return base.Contains(value) ||
-               Title.Contains(value, StringComparison.InvariantCultureIgnoreCase) ||
+        return Title.Contains(value, StringComparison.InvariantCultureIgnoreCase) ||
                Author.Contains(value, StringComparison.InvariantCultureIgnoreCase) ||
                ISBN.Contains(value, StringComparison.InvariantCultureIgnoreCase);
     }

@@ -3,7 +3,7 @@ namespace BD90.Model;
 // Detta är basklassen för alla objekt vi lagrar i vår bibliotekskatalog.
 // Alla klasser som ärver från denna klass kan användas i vår katalog.
 
-class CatalogueItem
+abstract class CatalogueItem
 {
     public int Id { get; set; }
 
@@ -13,9 +13,11 @@ class CatalogueItem
     }
 
     //Denna metod används för att söka efter något i ett katalogobjekt.
-    //Denna metod är virtuell, vilket betyder att den kan overridas av en subklass.
-    public virtual bool Contains(string value)
+    //Denna metod är abstrakt, vilket betyder att den _måste_ overridas av en subklass.
+    public abstract bool Contains(string value);
+
+    public override string ToString()
     {
-        return Id.ToString().Contains(value, StringComparison.InvariantCultureIgnoreCase);
+        return "Nu tittar du på objektet som som basklass!";
     }
 }

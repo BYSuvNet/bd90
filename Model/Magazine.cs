@@ -8,8 +8,7 @@ class Magazine : CatalogueItem
 
     public override bool Contains(string value)
     {
-        return base.Contains(value) ||
-               Title.Contains(value, StringComparison.InvariantCultureIgnoreCase);
+        return Title.Contains(value, StringComparison.InvariantCultureIgnoreCase);
     }
 
     public override string ToString()
