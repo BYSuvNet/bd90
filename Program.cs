@@ -10,55 +10,29 @@ internal class Program
     {
         Console.Clear();
 
+        RandomCatalogueRepository randomCatalogueRepository = new();
+
         //Här skapar vi vår katalog som hålla alla våra katalogobjekt, samt 
         //grundläggande funntionalitet i systemet, såsom att lägga till saker och söka efter saker
-        Catalogue catalogue = new();
-
-        catalogue.AddCatalogueItem(new Staff { Name = "Gus" });
-
-        //Testkod för att lägga till lite böcker i vår katalog
-        AddRandomCatalogeItems(catalogue, 1000);
+        Catalogue catalogue = new(randomCatalogueRepository);
 
         Console.Write("sök> ");
         string searchString = Console.ReadLine();
 
+        Table table = new();
+        table.AddColumn(new TableColumn("Title"));
+        table.AddColumn(new TableColumn("Author"));
+        table.AddColumn(new TableColumn("ISBN"));
+
         AnsiConsole.MarkupLine("[underline blue]RESULTAT:[/]");
         foreach (ISearchable item in catalogue.Search(searchString))
         {
-            AnsiConsole.MarkupLine($"[white]{item}[/]");
-
-            if (item is ILoggable loggable)
+            if (item is Book b)
             {
-                loggable.Log();
+                table.AddRow(b.Title, b.Author, b.ISBN);
             }
         }
-    }
 
-    private static void AddRandomCatalogeItems(Catalogue catalogue, int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            Book newBook = new()
-            {
-                Author = Faker.Name.FullName(),
-                PageCount = Faker.RandomNumber.Next(10, 2000),
-                Title = BookNameGenerator.GenerateBookName(),
-                ReleaseDate = Faker.Identification.DateOfBirth(),
-                ISBN = Faker.Identification.UkNationalInsuranceNumber()
-            };
-
-            catalogue.AddCatalogueItem(newBook);
-        }
-
-        for (int i = 0; i < amount / 2; i++)
-        {
-            Magazine magazine = new()
-            {
-                Title = "Gus Allt om " + Faker.Country.Name(),
-                Issue = Faker.RandomNumber.Next(1, 13)
-            };
-
-            catalogue.AddCatalogueItem(magazine);
-        }
+        AnsiConsole.Write(table);
     }
 }
